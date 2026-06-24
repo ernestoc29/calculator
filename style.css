@@ -1,0 +1,40 @@
+/* * {
+    padding: 0;
+    margin: 0;
+} */
+
+.calc-body {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 400px;
+    min-height: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.display {
+    display: flex;
+    text-align: right;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.btn {
+    width: calc(24.99% - (3 * 10px + 10px) / 4);
+    height: 50px;
+    box-sizing: border-box;
+}
+
+.calc-btns {
+    width: 100%;
+    gap: 10px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
