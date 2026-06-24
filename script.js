@@ -47,5 +47,16 @@ function handleDecimal() {
 }
 
 function operate(num1, operator, num2) {
+    const n1 = parseFloat(num1);
+    const n2 = parseFloat(num2);
 
+    if(operator === "plus") {
+        return n1 + n2;
+    } else if (operator === "minus") {
+        return n1 - n2;
+    } else if (operator === "multiply") {
+        return n1 * n2;
+    } else if (operator === "divide") {
+        return n1 / n2;
+    }
 }
