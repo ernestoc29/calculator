@@ -1,6 +1,7 @@
 let firstNumber = "";
 let secondNumber = "";
 let currentOperator = "";
+let result = ""
 
 const functionBtns = document.querySelectorAll(".function");
 const numberBtns = document.querySelectorAll(".number");
@@ -22,11 +23,19 @@ numberBtns.forEach(btn => {
 operationBtns.forEach(btn => {
      btn.addEventListener("click", () => {
         if (btn.id === "equals") {
-            console.log(operate(firstNumber, currentOperator, secondNumber));
+            result = operate(firstNumber, currentOperator, secondNumber);
+            console.log(result);
         } else if (btn.id === "decimal") {
             handleDecimal();
         } else {
-            currentOperator = btn.id
+            if (firstNumber && currentOperator && secondNumber) {
+                result = operate(firstNumber, currentOperator, secondNumber)
+                console.log(result);
+                firstNumber = result.toString();
+                secondNumber = "";
+            }
+
+            currentOperator = btn.id;
             console.log(currentOperator);
         }
     });
