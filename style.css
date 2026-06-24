@@ -1,7 +1,6 @@
-/* * {
-    padding: 0;
+p {
     margin: 0;
-} */
+}
 
 .calc-body {
     display: flex;
