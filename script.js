@@ -15,7 +15,7 @@ numberBtns.forEach(btn => {
         } else {
             secondNumber += btn.id;
             console.log(secondNumber);
-        };
+        }
     });
 });
 
@@ -24,23 +24,27 @@ operationBtns.forEach(btn => {
         if (btn.id === "equals") {
             console.log(operate(firstNumber, currentOperator, secondNumber));
         } else if (btn.id === "decimal") {
-            if (!currentOperator) {
-                if (!firstNumber.includes(".")) {
-                    firstNumber += ".";
-                }
-                console.log(firstNumber)
-            } else {
-                if(!secondNumber.includes(".")) {
-                    secondNumber += "."
-                }
-                console.log(secondNumber)
-            }
+            handleDecimal();
         } else {
             currentOperator = btn.id
             console.log(currentOperator);
         }
-    })
-})
+    });
+});
+
+function handleDecimal() {
+    if (!currentOperator) {
+        if (!firstNumber.includes(".")) {
+             firstNumber += ".";
+        }
+        console.log(firstNumber)
+    } else {
+        if(!secondNumber.includes(".")) {
+            secondNumber += "."
+        }
+        console.log(secondNumber)
+    }
+}
 
 function operate(num1, operator, num2) {
 
