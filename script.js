@@ -26,31 +26,11 @@ numberBtns.forEach(btn => {
 functionBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         if (btn.id === "clear") {
-            problem.textContent = "";
-            solution.textContent = "";
-            firstNumber = "";
-            secondNumber = "";
-            currentOperator = "";
-            result = "";
+            handleClear();
         } else if (btn.id === "delete") {
-            if (secondNumber) {
-                secondNumber = secondNumber.slice(0 , -1);
-                problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
-            } else if (currentOperator && !secondNumber) {
-                currentOperator = "";
-                problem.textContent = firstNumber;
-            } else {
-                firstNumber = firstNumber.slice(0, -1);
-                problem.textContent = firstNumber;
-            }
+            handleDelete();
         } else if (btn.id === "percent") {
-            if (secondNumber) {
-                secondNumber = (parseFloat(secondNumber) / 100).toString();
-                problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
-            } else if (!secondNumber && !currentOperator) {
-                firstNumber = (parseFloat(firstNumber) / 100).toString();
-                problem.textContent = firstNumber;
-            }
+            handlePercent();
         }
     })
 })
@@ -63,19 +43,20 @@ operationBtns.forEach(btn => {
         } else if (btn.id === "decimal") {
             handleDecimal();
         } else {
-            if (firstNumber && currentOperator && secondNumber) {
-                result = operate(firstNumber, currentOperator, secondNumber)
-                console.log(result);
-                firstNumber = result.toString();
-                secondNumber = "";
-            }
-
-            currentOperator = btn.id;
-            problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)}`
-            console.log(currentOperator);
+            handleOperator(btn.id);
         }
     });
 });
+
+signsBtn.addEventListener("click", () => {
+    if (secondNumber) {
+        secondNumber = secondNumber * -1;
+        problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
+    } else if (!currentOperator) {
+        firstNumber = firstNumber * -1;
+        problem.textContent = firstNumber;
+    }
+})
 
 function wordToSymbol(operator) {
     let currentOperatorDisplay = "";
@@ -99,14 +80,55 @@ function handleDecimal() {
             firstNumber += ".";
             problem.textContent = firstNumber;
         }
-        console.log(firstNumber)
     } else {
         if(!secondNumber.includes(".")) {
             secondNumber += ".";
             problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
         }
-        console.log(secondNumber)
     }
+}
+
+function handleClear() {
+    problem.textContent = "";
+    solution.textContent = "";
+    firstNumber = "";
+    secondNumber = "";
+    currentOperator = "";
+    result = "";
+}
+
+function handleDelete() {
+    if (secondNumber) {
+        secondNumber = secondNumber.slice(0 , -1);
+        problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
+    } else if (currentOperator && !secondNumber) {
+        currentOperator = "";
+        problem.textContent = firstNumber;
+    } else {
+        firstNumber = firstNumber.slice(0, -1);
+        problem.textContent = firstNumber;
+    }
+}
+
+function handlePercent() {
+    if (secondNumber) {
+        secondNumber = (parseFloat(secondNumber) / 100).toString();
+        problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
+    } else if (!currentOperator) {
+        firstNumber = (parseFloat(firstNumber) / 100).toString();
+        problem.textContent = firstNumber;
+    }
+}
+
+function handleOperator(operatorId) {
+    if (firstNumber && currentOperator && secondNumber) {
+        result = operate(firstNumber, currentOperator, secondNumber)
+        firstNumber = result.toString();
+        secondNumber = "";
+    }
+
+    currentOperator = operatorId;
+    problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)}`
 }
 
 function operate(num1, operator, num2) {
