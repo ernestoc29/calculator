@@ -8,14 +8,17 @@ const numberBtns = document.querySelectorAll(".number");
 const operationBtns = document.querySelectorAll(".operation");
 const signsBtn = document.getElementById("signs");
 
+const problem = document.querySelector(".problem");
+const solution = document.querySelector(".solution");
+
 numberBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         if (!currentOperator) {
             firstNumber += btn.id;
-            console.log(firstNumber);
+            problem.textContent = firstNumber;
         } else {
             secondNumber += btn.id;
-            console.log(secondNumber);
+            problem.textContent = `${firstNumber} ${currentOperator} ${secondNumber}`;
         }
     });
 });
@@ -24,7 +27,7 @@ operationBtns.forEach(btn => {
      btn.addEventListener("click", () => {
         if (btn.id === "equals") {
             result = operate(firstNumber, currentOperator, secondNumber);
-            console.log(result);
+            solution.textContent = result;
         } else if (btn.id === "decimal") {
             handleDecimal();
         } else {
@@ -44,12 +47,14 @@ operationBtns.forEach(btn => {
 function handleDecimal() {
     if (!currentOperator) {
         if (!firstNumber.includes(".")) {
-             firstNumber += ".";
+            firstNumber += ".";
+            problem.textContent = firstNumber;
         }
         console.log(firstNumber)
     } else {
         if(!secondNumber.includes(".")) {
-            secondNumber += "."
+            secondNumber += ".";
+            problem.textContent = `${firstNumber} ${currentOperator} ${secondNumber}`;
         }
         console.log(secondNumber)
     }
