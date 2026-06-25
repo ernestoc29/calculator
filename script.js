@@ -38,10 +38,18 @@ functionBtns.forEach(btn => {
                 problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
             } else if (currentOperator && !secondNumber) {
                 currentOperator = "";
-                problem.textContent = `${firstNumber}`;
+                problem.textContent = firstNumber;
             } else {
                 firstNumber = firstNumber.slice(0, -1);
-                problem.textContent = `${firstNumber}`;
+                problem.textContent = firstNumber;
+            }
+        } else if (btn.id === "percent") {
+            if (secondNumber) {
+                secondNumber = (parseFloat(secondNumber) / 100).toString();
+                problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
+            } else if (!secondNumber && !currentOperator) {
+                firstNumber = (parseFloat(firstNumber) / 100).toString();
+                problem.textContent = firstNumber;
             }
         }
     })
