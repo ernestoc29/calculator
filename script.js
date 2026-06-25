@@ -1,7 +1,7 @@
 let firstNumber = "";
 let secondNumber = "";
 let currentOperator = "";
-let result = ""
+let result = "";
 
 const functionBtns = document.querySelectorAll(".function");
 const numberBtns = document.querySelectorAll(".number");
@@ -18,10 +18,26 @@ numberBtns.forEach(btn => {
             problem.textContent = firstNumber;
         } else {
             secondNumber += btn.id;
-            problem.textContent = `${firstNumber} ${currentOperator} ${secondNumber}`;
+            problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
         }
     });
 });
+
+function wordToSymbol(operator) {
+    let currentOperatorDisplay = "";
+
+    if (operator === "plus") {
+        currentOperatorDisplay = "+";
+    } else if (operator === "minus") {
+        currentOperatorDisplay = "-";
+    } else if (operator === "multiply") {
+        currentOperatorDisplay = "*";
+    } else if (operator === "divide") {
+        currentOperatorDisplay = "÷";
+    }
+
+    return currentOperatorDisplay
+}
 
 operationBtns.forEach(btn => {
      btn.addEventListener("click", () => {
@@ -39,6 +55,7 @@ operationBtns.forEach(btn => {
             }
 
             currentOperator = btn.id;
+            problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)}`
             console.log(currentOperator);
         }
     });
@@ -54,7 +71,7 @@ function handleDecimal() {
     } else {
         if(!secondNumber.includes(".")) {
             secondNumber += ".";
-            problem.textContent = `${firstNumber} ${currentOperator} ${secondNumber}`;
+            problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
         }
         console.log(secondNumber)
     }
