@@ -23,21 +23,29 @@ numberBtns.forEach(btn => {
     });
 });
 
-function wordToSymbol(operator) {
-    let currentOperatorDisplay = "";
-
-    if (operator === "plus") {
-        currentOperatorDisplay = "+";
-    } else if (operator === "minus") {
-        currentOperatorDisplay = "-";
-    } else if (operator === "multiply") {
-        currentOperatorDisplay = "*";
-    } else if (operator === "divide") {
-        currentOperatorDisplay = "÷";
-    }
-
-    return currentOperatorDisplay
-}
+functionBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        if (btn.id === "clear") {
+            problem.textContent = "";
+            solution.textContent = "";
+            firstNumber = "";
+            secondNumber = "";
+            currentOperator = "";
+            result = "";
+        } else if (btn.id === "delete") {
+            if (secondNumber) {
+                secondNumber = secondNumber.slice(0 , -1);
+                problem.textContent = `${firstNumber} ${wordToSymbol(currentOperator)} ${secondNumber}`;
+            } else if (currentOperator && !secondNumber) {
+                currentOperator = "";
+                problem.textContent = `${firstNumber}`;
+            } else {
+                firstNumber = firstNumber.slice(0, -1);
+                problem.textContent = `${firstNumber}`;
+            }
+        }
+    })
+})
 
 operationBtns.forEach(btn => {
      btn.addEventListener("click", () => {
@@ -60,6 +68,22 @@ operationBtns.forEach(btn => {
         }
     });
 });
+
+function wordToSymbol(operator) {
+    let currentOperatorDisplay = "";
+
+    if (operator === "plus") {
+        currentOperatorDisplay = "+";
+    } else if (operator === "minus") {
+        currentOperatorDisplay = "-";
+    } else if (operator === "multiply") {
+        currentOperatorDisplay = "*";
+    } else if (operator === "divide") {
+        currentOperatorDisplay = "÷";
+    }
+
+    return currentOperatorDisplay;
+}
 
 function handleDecimal() {
     if (!currentOperator) {
@@ -88,6 +112,10 @@ function operate(num1, operator, num2) {
     } else if (operator === "multiply") {
         return n1 * n2;
     } else if (operator === "divide") {
-        return n1 / n2;
+       if (n2 === 0) {
+       return "Error"
+       } else {
+        return n1 / n2
+       }
     }
 }
